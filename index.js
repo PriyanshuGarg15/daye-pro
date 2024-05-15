@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const rateLimitMiddleware = require('./middleware/rateLimitMiddleware');
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: 'config/config.env' });
+    require('dotenv').config({ path: '.env' });
 }
 
 const app = express();
@@ -37,15 +37,13 @@ app.use((err, req, res, next) => {
 });
 
 //Product Creation Route
-// const product = require('./routes/productRoute');
-// app.use('/api', product)
+const createProduct = require('./routes/createRoute');
+app.use('/create', createProduct)
 
 // Health check endpoint
 app.get('/healthCheck', (req, res) => {
     res.send('Server is Running! 🚀');
 });
-
-
 
 // Start the server
 app.listen(PORT, () => {
